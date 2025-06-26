@@ -1,0 +1,66 @@
+from turtle import Turtle, Screen
+import random
+import time
+from tim import Tim
+from fish import Fish
+from finishline import Finishline
+from scoreboard import Scoreboard
+
+screen = Screen()
+screen.setup(600, 600)
+screen.bgcolor("light blue")
+screen.tracer(0)
+
+tim = Tim()
+
+fish_list = []
+max_fish = 10
+spawn_delay = 10  # frames
+frame_count = 0
+
+colors = ["red", "orange", "yellow", "green", "blue", "purple",
+          "indigo", "violet", "cyan", "aqua", "gold"]
+rand_color = random.choice(colors)
+
+score = Scoreboard()
+finishline = Finishline()
+
+game_on = True
+while game_on:
+    fish_speed = 0.08
+    time.sleep(fish_speed)
+    screen.update()
+    frame_count += 1
+
+    screen.listen()
+    screen.onkeypress(tim.jump, "space")
+
+    if frame_count % spawn_delay == 0:
+        fish = Fish()
+        fish.goto(180, random.randint(-245, 245))
+        fish_list.append(fish)
+
+    for fish in fish_list:
+        fish.swim()
+
+    for fish in fish_list:
+        if fish.xcor() - 20 < tim.xcor() < fish.xcor() + 20 and fish.ycor() - 5 < tim.ycor() < fish.ycor() + 5:
+            game_on = False
+            print("You hit a fish. Game over!")
+
+    if tim.ycor() > finishline.ycor() - 10:
+        score.level
+        tim.reset_position()
+
+
+
+
+
+            # if ball.distance(r_paddle) < 50 and ball.xcor() > 320 or ball.distance(
+            #         l_paddle) < 50 and ball.xcor() < -320:
+            #     ball.bounce_x()
+            #
+            #     if ball.xcor() > 380:
+            #         ball.reset_position()
+            #         scoreboard.l_point()
+screen.exitonclick()
