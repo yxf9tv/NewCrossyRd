@@ -1,0 +1,35 @@
+from turtle import Turtle
+import random
+
+rand_x = 180
+def random_y():
+    random.randint(-245, 245)
+
+rand_y = random.randint(-245, 245)
+rand_speed = random.randint(1, 10)
+
+class Fish(Turtle):
+    def __init__(self):
+        super().__init__()      # let's try initializing the easy way too
+        self.shape("square")
+        self.shapesize(stretch_wid=0.5, stretch_len=2)
+
+        colors = ["red", "orange", "yellow", "green", "blue", "purple",
+                  "indigo", "violet", "cyan", "aqua", "gold"]
+        rand_color = random.choice(colors)
+
+        self.color(rand_color)
+        self.penup()
+        self.setheading(180)
+        self.move_speed = 0.1
+
+
+    def swim(self):
+        self.forward(5)
+
+    def collision(self):
+        pass
+
+    def speed_up(self):
+        self.move_speed *= 0.75
+
